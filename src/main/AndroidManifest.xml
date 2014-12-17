@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2012-2014 Arne Schwabe
+  ~ Distributed under the GNU GPL v2. For full terms see the file doc/LICENSE.txt
+  -->
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="de.blinkt.openvpn">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Copy the <permission> block to your app when using the REMOTE API. Otherwise OpenVPN for
+        Android needs to be installed first -->
+    <permission
+        android:name="de.blinkt.openvpn.REMOTE_API"
+        android:description="@string/permission_description"
+        android:label="Control OpenVPN"
+        android:permissionGroup="android.permission-group.NETWORK"
+        android:protectionLevel="dangerous" />
+
+    <application
+        android:allowBackup="true"
+        android:supportsRtl="true"
+        tools:ignore="UnusedAttribute">
+        <service
+            android:name=".core.OpenVPNService"
+            android:process="com.cryptninja.vpnservice"
+            android:permission="android.permission.BIND_VPN_SERVICE" >
+            <intent-filter>
+                <action android:name="android.net.VpnService" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".api.ExternalOpenVPNService"
+            android:process="com.cryptninja.vpnservice"
+            android:permission="de.blinkt.openvpn.REMOTE_API" >
+            <intent-filter>
+                <action android:name="de.blinkt.openvpn.api.IOpenVPNAPIService" />
+            </intent-filter>
+        </service>
+
+        <!--<receiver android:name=".OnBootReceiver">-->
+            <!--<intent-filter-->
+                <!--android:priority="999">-->
+                <!--<action android:name="android.intent.action.BOOT_COMPLETED" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
+
+        <!--<provider-->
+            <!--android:name=".FileProvider"-->
+            <!--android:authorities="de.blinkt.openvpn.FileProvider"-->
+            <!--android:exported="true"-->
+            <!--android:grantUriPermissions="true"-->
+            <!--tools:ignore="ExportedContentProvider" />-->
+
+        <!--
+        <receiver android:name="core.GetRestrictionReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.GET_RESTRICTION_ENTRIES" />
+            </intent-filter>
+        </receiver>
+        -->
+    </application>
+
+</manifest>

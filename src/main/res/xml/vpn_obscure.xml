@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2012-2014 Arne Schwabe
+  ~ Distributed under the GNU GPL v2. For full terms see the file doc/LICENSE.txt
+  -->
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="Obscure Settings">
+
+
+    <CheckBoxPreference
+        android:key="useRandomHostname"
+        android:persistent="false"
+        android:summary="@string/random_host_summary"
+        android:title="@string/random_host_prefix" />
+    <CheckBoxPreference
+        android:key="useFloat"
+        android:persistent="false"
+        android:summary="@string/float_summary"
+        android:title="@string/float_title" />
+
+    <PreferenceCategory android:title="Payload options">
+        <CheckBoxPreference
+            android:key="mssFix"
+            android:persistent="false"
+            android:title="@string/mssfix_checkbox" />
+        <EditTextPreference
+            android:dependency="mssFix"
+            android:dialogMessage="@string/mssfix_value_dialog"
+            android:key="mssFixValue"
+            android:persistent="false"
+            android:title="@string/mssfix_dialogtitle" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/custom_config_title">
+        <CheckBoxPreference
+            android:key="enableCustomOptions"
+            android:persistent="false"
+            android:summary="@string/custom_config_summary"
+            android:title="@string/custom_config_title" />
+
+        <EditTextPreference
+            android:dependency="enableCustomOptions"
+            android:dialogMessage="@string/custom_option_warning"
+            android:key="customOptions"
+            android:persistent="false"
+            android:title="@string/custom_options_title" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
